@@ -1,0 +1,51 @@
+----Descargar Python---
+https://www.python.org/downloads/
+
+Agregar pip install
+agregar en la opcion enviroment variables
+
+
+Crear una carpeta para el proyecto final
+abrir el  --> archivo/file --> PowerShell --> Como admin
+-----En el CMD/ PowerShell ------
+python --version
+
+pip --version
+
+pip install virtualenv
+
+virtualenv nombre_proyecto
+
+
+moverse hasta la carpeta script y ejecutar el activate
+
+Abrir el VSC ---> code . 
+
+WorkBench
+https://dev.mysql.com/downloads/workbench/
+
+------ VSC ---------
+1.Abrir terminal
+pip install flask flask-sqlalchemy flask-marshmallow marshmallow-sqlalchemy pymysql  -U flask-cors 
+
+Correr XAMPP 
+Start Apache
+Start mysql
+
+Crear una DB
+script para crear DB
+CREATE DATABASE nombre_proyecto;
+
+extension de VSC
+https://marketplace.visualstudio.com/items?itemName=Postman.postman-for-vscode
+
+
+
+
+
+
+
+---Despues de correr el proyecto---
+Que ya tenemos la tabla Producto creada en la base
+
+INSERT INTO `proyecto`.`producto` (`nombre`, `precio`, `stock`, `imagen`) VALUES ('Mouse', '12365', '10', 'https://http2.mlstatic.com/D_NQ_NP_744609-MLA32854739285_112019-O.webp');

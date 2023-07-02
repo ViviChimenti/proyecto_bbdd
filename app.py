@@ -1,7 +1,17 @@
+
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
+#from flask_migrate import Migrate
+import os
+
+virtual_env = os.getenv('VIRTUAL_ENV')
+if virtual_env:
+    print("Entorno virtual:", os.path.basename(virtual_env))
+else:
+    print("No se ha activado ningún entorno virtual.")
+
 
 app=Flask(__name__) #Crea el objeto app de la clase Flask
 CORS(app) #permite acceder desde el front al back
@@ -13,6 +23,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:@localhost/proyect
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False #none
 db= SQLAlchemy(app)   #crea el objeto db de la clase SQLAlquemy
 ma=Marshmallow(app)   #crea el objeto ma de de la clase Marshmallow
+#migrate = Migrate(app, db)
 
 # ---------fin configuracion-----------
 
@@ -62,6 +73,14 @@ def get_Productos():
 def get_producto(id):
     producto=Producto.query.get(id)
     return producto_schema.jsonify(producto)   # retorna el JSON de un producto recibido como parametro
+
+@app.route('/productos/<nombre>', methods=['GET'])
+def get_producto_por_nombre(nombre):
+    producto = Producto.query.filter_by(nombre=nombre).first()
+    if producto:
+        return producto_schema.jsonify(producto)
+    else:
+        return jsonify({"message": "Producto no encontrado"})
 
 
 
