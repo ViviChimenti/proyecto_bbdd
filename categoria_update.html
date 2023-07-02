@@ -1,7 +1,7 @@
 <<!doctype html>
 <html lang="en">
 <head>
-  <title>Editar Producto</title>
+  <title>Editar Categoría</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <!-- Bootstrap CSS v5.2.1 -->
@@ -15,30 +15,22 @@
   <main>
     <div class="container" id="app">
       <form style="background-color: aliceblue;margin:10px auto ; width: 400px; padding: 20px;">
-      <h2>Editar Producto </h2>
-      <p>Precio:{{precio}}</p>
+      <h2>Editar Categoría </h2>
+      <!--<p>Precio:{{precio}}</p>  -->
       <div class="mb-3">
-        <label for="id">Id</label>
+        <label for="id">Id:</label>
         <input type="number" name="id" id="id" disabled v-model="id" >
       </div>
       <div class="mb-3">
-        <label for="nombre">Nombre</label>
-        <input type="text" name="nombre" id="nombre" v-model="nombre">
+        <label for="categoria">Categoría:</label>
+        <input type="text" name="categoria" id="categoria" v-model="categoria">
       </div>
       <div class="mb-3">
-        <label for="precio">Precio</label>
-        <input type="number" name="precio" id="precio" v-model="precio">
+        <label for="detalle">Detalle:</label>
+        <input type="text" name="detalle" id="detalle" v-model="detalle">
       </div>
-      <div class="mb-3">
-        <label for="stock">Stock</label>
-        <input type="number" name="stock" id="stock" v-model="stock">
-      </div>
-      <div class="mb-3">
-        <label for="imagen">Imagen</label>
-        <input type="text" name="imagen" id="imagen" v-model="imagen">  
-        <img width="100"   :src="imagen" alt="">
-      </div>
-      <button type="button" class="btn btn-success" v-on:click="modificar()">Grabar</button>
+      
+      <button type="button" class="btn btn-success" v-on:click="modificar()">Actualizar</button>
       </form>
     </div>
   </main>
@@ -52,6 +44,6 @@
     integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"> </script>
   <script src="./js/main.js"></script>
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-  <script src="./js/producto_editar.js"></script>
+  <script src="./js/categoria_editar.js"></script>
 </body>
 </html>

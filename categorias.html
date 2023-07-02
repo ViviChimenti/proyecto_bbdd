@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Productos</title>
+    <title>Categorías</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
@@ -12,9 +12,9 @@
     </header>
     <main>
         <div id="app" class="container">
-            <h1>Productos</h1>
+            <h1>Categorías</h1>
             <br>
-            <a  class="btn btn-primary" href="producto_nuevo.html">Nuevo</a>
+            <a  class="btn btn-primary" href="categoria_nueva.html">Nuevo</a>
             <br><br>
             <div v-if="error">
                 <p>Lo sentimos ........</p>
@@ -30,25 +30,18 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Id</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Precio</th>
-                                    <th scope="col">Stock</th>
-                                    <th scope="col">Imagen</th>
-                                    <th scope="col">Acciones</th>
+                                    <th scope="col">Categoría</th>
+                                    <th scope="col">Detalle</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class=""  v-for="producto in productos">
-                                    <td scope="row">{{producto.id}}</td>
-                                    <td>{{producto.nombre}}</td>
-                                    <td>{{producto.precio}}</td>
-                                    <td>{{producto.stock}}</td>
+                                <tr class=""  v-for="categoria in categorias">
+                                    <td scope="row">{{categoria.id}}</td>
+                                    <td>{{categoria.categoria}}</td>
+                                    <td>{{categoria.detalle}}</td>
                                     <td>
-                                        <img width="60"  :src="producto.imagen" :alt="producto.nombre">
-                                    </td>
-                                    <td>
-                    			<a class="btn btn-primary" :href="'producto_update.html?id='+ producto.id" >Editar</a>
-                                      <button type="button" class="btn btn-danger" v-on:click="eliminar(producto.id)" >Eliminar</button>
+                    			      <a class="btn btn-primary" :href="'categoria_update.html?id='+ categoria.id" >Editar</a>
+                                      <button type="button" class="btn btn-danger" v-on:click="eliminar(categoria.id)" >Eliminar</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -67,6 +60,6 @@ src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
     <script src="./js/main.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script><!--Link de VUE-->
-    <script src="./js/productos.js"></script>
+    <script src="./js/categorias.js"></script>
 </body>
 </html>
