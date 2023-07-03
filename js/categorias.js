@@ -2,16 +2,14 @@ const { createApp } = Vue
   createApp({
     data() {
       return {
-        productos:[],
-        url:'http://localhost:5000/productos', 
+        categorias:[],
+        url:'http://localhost:5000/categorias', 
         error:false,
         cargando:true,
         /*atributos para el guardar los valores del formulario */
         id:0,
-        nombre:"", 
-        imagen:"",
-        stock:0,
-        precio:0,
+        categoria:"", 
+        detalle:"",
     }  
     },
     methods: {
@@ -19,7 +17,7 @@ const { createApp } = Vue
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
-                    this.productos = data;
+                    this.categorias = data;
                     this.cargando=false
                 })
                 .catch(err => {
@@ -27,7 +25,7 @@ const { createApp } = Vue
                     this.error=true              
                 })
         },
-        eliminar(producto) {
+        eliminar(categoria) {
             Swal.fire({
                 title: '¿Estás seguro?',
                 text: "¡No podrás revertir esto!",
@@ -38,7 +36,7 @@ const { createApp } = Vue
                 confirmButtonText: '¡Sí, elimínalo!'
               }).then((result) => {
                 if (result.isConfirmed) {
-                    const url = this.url+'/' + producto;
+                    const url = this.url+'/' + categoria;
                         var options = {
                             method: 'DELETE',
                         }
@@ -46,19 +44,17 @@ const { createApp } = Vue
                             .then(res => res.text()) // or res.json()
                             .then(res => {
                                 location.reload();
-                        })
+                        })       
                 }
               })
         },
         grabar(){
-            let producto = {
-                nombre:this.nombre,
-                precio: this.precio,
-                stock: this.stock,
-                imagen:this.imagen
+            let categoria = {
+                categoria:this.categoria,
+                detalle: this.detalle,
             }
             var options = {
-                body:JSON.stringify(producto),
+                body:JSON.stringify(categoria),
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 redirect: 'follow'
@@ -66,7 +62,7 @@ const { createApp } = Vue
             fetch(this.url, options)
                 .then(function () {
                     alert("Registro grabado")
-                    window.location.href = "./productos.html";  
+                    window.location.href = "./categorias.html";  
                 })
                 .catch(err => {
                     console.error(err);
@@ -78,6 +74,3 @@ const { createApp } = Vue
         this.fetchData(this.url)
     },
   }).mount('#app')
-
-
-  

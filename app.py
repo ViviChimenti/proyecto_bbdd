@@ -51,9 +51,28 @@ class ProductoSchema(ma.Schema):
     
 producto_schema=ProductoSchema() #El objeto para traer un producto
 productos_schema=ProductoSchema(many=True) #Trae muchos registro de producto
+# ------------------------------------
+#definimos tabla categoria
 
+class Categoria(db.Model):
+    id=db.Column(db.Integer, primary_key=True)
+    categoria=db.Column(db.String(100))
+    detalle=db.Column(db.String(100))
+    def __init__(self,categoria,detalle):
+        self.categoria = categoria
+        self.detalle = detalle
 
+with app.app_context():
+    db.create_all() #Crea las tablas
 
+class CategoriaSchema(ma.Schema):
+    class Meta:
+        fields=('id','categoria','detalle')
+    
+categoria_schema=CategoriaSchema() #El objeto para traer un categoria
+categorias_schema=CategoriaSchema(many=True) #Trae muchos registro de categoria
+
+#-------------------------------------
 #Creamos los endpoint
 #GET
 #POST
@@ -118,6 +137,63 @@ def update_producto(id):
 
     db.session.commit()
     return producto_schema.jsonify(producto)
+
+
+#------------------------------------------
+#Get endpoint del get categoria
+@app.route('/categorias',methods=['GET'])
+def get_Categorias():
+    all_categorias = Categoria.query.all() #heredamos del db.model
+    result= categorias_schema.dump(all_categorias) #lo heredamos de ma.schema
+                                                #Trae todos los registros de la tabla y los retornamos en un JSON
+    return jsonify(result)
+
+
+@app.route('/categorias/<id>',methods=['GET'])
+def get_categoria(id):
+    categoria=Categoria.query.get(id)
+    return categoria_schema.jsonify(categoria)   # retorna el JSON de un producto recibido como parametro
+
+@app.route('/categorias/<categoria>', methods=['GET'])
+def get_categoria_por_nombre(categoria):
+    categoria = Categoria.query.filter_by(categoria=categoria).first()
+    if categoria:
+        return categoria_schema.jsonify(categoria)
+    else:
+        return jsonify({"message": "Categoria no encontrada"})
+
+
+
+
+@app.route('/categorias/<id>',methods=['DELETE'])
+def delete_categoria(id):
+    categoria=Categoria.query.get(id)
+    db.session.delete(categoria)
+    db.session.commit()
+    return categoria_schema.jsonify(categoria)   # me devuelve un json con el registro eliminado
+
+
+@app.route('/categorias', methods=['POST']) # crea ruta o endpoint
+def create_categoria():
+    #print(request.json)  # request.json contiene el json que envio el cliente
+    categoria=request.json['categoria']
+    detalle=request.json['detalle']
+    new_categoria=Categoria(categoria,detalle)
+    db.session.add(new_categoria)
+    db.session.commit()
+    return categoria_schema.jsonify(new_categoria)
+
+
+@app.route('/categorias/<id>' ,methods=['PUT'])
+def update_categoria(id):
+    categoria=Categoria.query.get(id)
+ 
+    categoria.categoria=request.json['categoria']
+    categoria.detalle=request.json['detalle']
+   
+    db.session.commit()
+    return categoria_schema.jsonify(categoria)
+#-------------------------------------------------------
 
 #Programa Principal
 if __name__ == '__main__':
