@@ -28,15 +28,27 @@ const { createApp } = Vue
                 })
         },
         eliminar(producto) {
-            const url = this.url+'/' + producto;
-            var options = {
-                method: 'DELETE',
-            }
-            fetch(url, options)
-                .then(res => res.text()) // or res.json()
-                .then(res => {
-                    location.reload();
-                })
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "¡No podrás revertir esto!",
+                icon: 'Advertencia',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '¡Sí, elimínalo!'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    const url = this.url+'/' + producto;
+                        var options = {
+                            method: 'DELETE',
+                        }
+                        fetch(url, options)
+                            .then(res => res.text()) // or res.json()
+                            .then(res => {
+                                location.reload();
+                        })
+                }
+              })
         },
         grabar(){
             let producto = {
@@ -66,3 +78,6 @@ const { createApp } = Vue
         this.fetchData(this.url)
     },
   }).mount('#app')
+
+
+  
