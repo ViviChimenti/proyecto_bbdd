@@ -12,6 +12,7 @@ const { createApp } = Vue
         imagen:"",
         stock:0,
         precio:0,
+        // categorias: [], 
     }  
     },
     methods: {
@@ -26,6 +27,7 @@ const { createApp } = Vue
                     console.error(err);
                     this.error=true              
                 })
+        
         },
         eliminar(producto) {
             Swal.fire({
