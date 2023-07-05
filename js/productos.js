@@ -3,7 +3,9 @@ const { createApp } = Vue
     data() {
       return {
         productos:[],
+        categorias: [],  //agregué esto para probar el desplegable
         url:'http://localhost:5000/productos', 
+        urlCategorias: 'http://localhost:5000/categorias', // agregué esto, URL para obtener las categorías
         error:false,
         cargando:true,
         /*atributos para el guardar los valores del formulario */
@@ -12,15 +14,16 @@ const { createApp } = Vue
         imagen:"",
         stock:0,
         precio:0,
-        // categorias: [], 
-    }  
+       
+     }  
     },
     methods: {
         fetchData(url) {
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
-                    this.productos = data;
+
+                    this.productos = data; 
                     this.cargando=false
                 })
                 .catch(err => {
@@ -77,9 +80,10 @@ const { createApp } = Vue
         }
     },
     created() {
+       
         this.fetchData(this.url)
     },
-  }).mount('#app')
+  }).mount('#app');
 
-
+  
   
