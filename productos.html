@@ -50,13 +50,19 @@
                                     <td>{{producto.nombre}}</td>
                                     <td>{{producto.precio}}</td>
                                     <td>{{producto.stock}}</td>
+
                                     <td>
                                         <img width="60"  :src="producto.imagen" :alt="producto.nombre">
                                     </td>
-                                    <td></td>
+                                    <td> 
+                                        {{producto.pcategoria}}
+                                        <!-- <select>
+                                            <option v-for="categoria in categorias" :value="categoria.categoria">{{categoria.categoria}}</option>
+                                        </select>   -->
+                                    </td>
                                     <td>
-                    			<a class="btn btn-primary" :href="'producto_update.html?id='+ producto.id" >Editar</a>
-                                      <button type="button" class="btn btn-danger" v-on:click="eliminar(producto.id)" >Eliminar</button>
+                    			        <a class="btn btn-primary" :href="'producto_update.html?id='+ producto.id" >Editar</a>
+                                        <button type="button" class="btn btn-danger" v-on:click="eliminar(producto.id)" >Eliminar</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -76,6 +82,7 @@ src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" 
     <script src="./js/main.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script><!--Link de VUE-->
     <script src="./js/productos.js"></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

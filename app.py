@@ -33,11 +33,13 @@ class Producto(db.Model):
     nombre=db.Column(db.String(100))
     precio=db.Column(db.Integer)
     stock=db.Column(db.Integer)
+    pcategoria=db.Column(db.String(100))
     imagen=db.Column(db.String(400))
-    def __init__(self,nombre,precio,stock,imagen):
+    def __init__(self,nombre,precio,stock,pcategoria,imagen):
         self.nombre = nombre
         self.precio = precio
         self.stock = stock
+        self.pcategoria = pcategoria
         self.imagen = imagen
 
     #Si hay mas tablas para crear las definimos aca
@@ -47,7 +49,7 @@ with app.app_context():
 
 class ProductoSchema(ma.Schema):
     class Meta:
-        fields=('id','nombre','precio','stock','imagen')
+        fields=('id','nombre','precio','stock','pcategoria','imagen')
     
 producto_schema=ProductoSchema() #El objeto para traer un producto
 productos_schema=ProductoSchema(many=True) #Trae muchos registro de producto
@@ -115,14 +117,20 @@ def delete_producto(id):
 @app.route('/productos', methods=['POST']) # crea ruta o endpoint
 def create_producto():
     #print(request.json)  # request.json contiene el json que envio el cliente
-    nombre=request.json['nombre']
-    precio=request.json['precio']
-    stock=request.json['stock']
-    imagen=request.json['imagen']
-    new_producto=Producto(nombre,precio,stock,imagen)
+    print(request.json)
+    nombre=request.json.get('nombre')
+    precio=request.json.get('precio')
+    stock=request.json.get('stock')
+    pcategoria=request.json.get('pcategoria')
+    imagen=request.json.get('imagen')
+
+    if not nombre or not precio or not stock or not pcategoria or not imagen:
+        return jsonify({"message": "Faltan campos obligatorios"}), 400
+
+    new_producto = Producto(nombre=nombre, precio=precio, stock=stock, pcategoria=pcategoria, imagen=imagen)
     db.session.add(new_producto)
     db.session.commit()
-    return producto_schema.jsonify(new_producto)
+    return producto_schema.jsonify(new_producto),201
 
 
 @app.route('/productos/<id>' ,methods=['PUT'])
@@ -132,6 +140,7 @@ def update_producto(id):
     producto.nombre=request.json['nombre']
     producto.precio=request.json['precio']
     producto.stock=request.json['stock']
+    producto.pcategoria=request.json['pcategoria']
     producto.imagen=request.json['imagen']
 
 

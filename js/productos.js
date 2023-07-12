@@ -22,16 +22,34 @@ const { createApp } = Vue
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
-
                     this.productos = data; 
                     this.cargando=false
                 })
+                
                 .catch(err => {
                     console.error(err);
                     this.error=true              
-                })
-        
+                });
+
+       
         },
+
+        // 
+        fetchCategorias(urlCategorias) {
+            fetch(urlCategorias)
+              .then(response => response.json())
+              .then(data => {
+                this.categorias = data;
+                const nuevoElemento = { id: 1, categoria: "Seleccione opción" }; // Ejemplo de nuevo elemento
+                data.unshift(nuevoElemento);
+              })
+              .catch(err => {
+                console.error(err);
+                this.error = true;
+              });
+          },
+        // 
+
         eliminar(producto) {
             Swal.fire({
                 title: '¿Estás seguro?',
@@ -60,7 +78,9 @@ const { createApp } = Vue
                 nombre:this.nombre,
                 precio: this.precio,
                 stock: this.stock,
+                pcategoria:this.pcategoria,
                 imagen:this.imagen
+                
             }
             var options = {
                 body:JSON.stringify(producto),
@@ -78,12 +98,17 @@ const { createApp } = Vue
                     alert("Error al Grabarr")
                 })      
         }
+
+
     },
     created() {
-       
-        this.fetchData(this.url)
+        this.fetchData(this.url);
+        this.fetchCategorias(this.urlCategorias);
     },
+
+
+
+    
   }).mount('#app');
 
-  
-  
+
