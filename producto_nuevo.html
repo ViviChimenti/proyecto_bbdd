@@ -36,6 +36,13 @@
           <input type="number" name="stock" id="stock" v-model="stock">
         </div>
         <div class="mb-3">
+          <label for="pcategoria">Categoría</label>
+          <select name="pcategoria" v-model="pcategoria">
+            <option v-for="categoria in categorias" :value="categoria.categoria" >{{categoria.categoria}}</option>
+        </select>
+        </div>
+
+        <div class="mb-3">
           <label for="imagen">Imagen</label>
           <input type="text" name="imagen" id="imagen" v-model="imagen">
           <img width="100" :src="imagen" alt="">
